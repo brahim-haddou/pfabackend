@@ -3,6 +3,7 @@ package com.example.pfabackend.service;
 import com.example.pfabackend.dto.AuthenticationResponse;
 import com.example.pfabackend.dto.LoginRequest;
 import com.example.pfabackend.dto.RegisterRequest;
+import com.example.pfabackend.dto.refreshTokenRequest;
 import com.example.pfabackend.exceptions.SpringPfaException;
 import com.example.pfabackend.model.NotificationEmail;
 import com.example.pfabackend.model.User;
@@ -33,6 +34,7 @@ public class AuthService {
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
 
     @Transactional
@@ -45,14 +47,13 @@ public class AuthService {
         user.setEnabled(false);
         userRepository.save(user);
         String token = generateVerificationToken(user);
-        // TODO : send mail to enable account
 
-//         mailService.sendMail(new NotificationEmail(
-//         "Please Activate Your Account",
-//                 user.getEmail(),
-//         "thank you for signing up to PFA" +
-//                 "please click on the below url to activate your account : " +
-//                 "http://localhost:8081/api/auth/accountVerification/" + token));
+         mailService.sendMail(new NotificationEmail(
+         "Please Activate Your Account",
+                 user.getEmail(),
+         "thank you for signing up to PFA" +
+                 "please click on the below url to activate your account : " +
+                 "http://localhost:8081/api/auth/accountVerification/" + token));
     }
 
     private String generateVerificationToken(User user) {
@@ -60,7 +61,6 @@ public class AuthService {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setUser(user);
-//        verificationToken.setExpiryDate();
         verificationTokenRepository.save(verificationToken);
 
         return token;
@@ -89,7 +89,24 @@ public class AuthService {
                  new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-        return new AuthenticationResponse(token, loginRequest.getUsername());
+        return  AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(loginRequest.getUsername())
+                .build();
+
+    }
+
+    public AuthenticationResponse refreshToken(refreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
 
     }
 }

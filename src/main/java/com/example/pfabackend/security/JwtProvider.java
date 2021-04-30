@@ -2,10 +2,8 @@ package com.example.pfabackend.security;
 
 
 import com.example.pfabackend.exceptions.SpringPfaException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -63,8 +61,8 @@ public class JwtProvider {
 
 
     public boolean validateToken(String jwt) {
-        Jwts.parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
-        return true;
+            Jwts.parser().setSigningKey(getPublickey()).parse(jwt);
+            return false;
     }
 
 
@@ -79,8 +77,7 @@ public class JwtProvider {
 
     private PrivateKey getPrivateKey() {
         try {
-            PrivateKey t = (PrivateKey) keyStore.getKey("springpfa", "brahim10".toCharArray());
-            return t;
+            return (PrivateKey) keyStore.getKey("springpfa", "brahim10".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new SpringPfaException("Exception occurred while retrieving public key from keystore", e);
         }
