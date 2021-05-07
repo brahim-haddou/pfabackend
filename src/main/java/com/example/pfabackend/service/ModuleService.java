@@ -30,6 +30,7 @@ public class ModuleService {
                 .orElseThrow(() -> new ProfesseurNotFoundException( "Module With Id "+ module.getId() +" Not Found"));
 
         mod.setNom(module.getNom());
+        mod.setFiliere(module.getFiliere());
         return moduleRepository.save(mod);
     }
     @Transactional(readOnly = true)
@@ -48,5 +49,9 @@ public class ModuleService {
 
     public List<Module> getModulesByFiliereId(Long id) {
         return moduleRepository.findAllByFiliereId(id);
+    }
+
+    public List<Element> getModuleElements(Long id) {
+        return elementRepository.findAllByElementId(id);
     }
 }

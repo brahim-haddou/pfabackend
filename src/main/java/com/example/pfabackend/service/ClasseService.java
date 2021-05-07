@@ -30,6 +30,7 @@ public class ClasseService {
         cla.setNom(classe.getNom());
         cla.setType(classe.getType());
         cla.setMaxEtudiant(classe.getMaxEtudiant());
+        cla.setElement(classe.getElement());
         return classeRepository.save(cla);
     }
     @Transactional(readOnly = true)

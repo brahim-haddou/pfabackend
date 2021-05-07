@@ -20,6 +20,7 @@ public class FiliereController {
 
     @PostMapping
     public ResponseEntity<String> createFiliere(@RequestBody Filiere filiere) {
+        System.out.println(filiere);
         filiereService.saveFiliere(filiere);
         return status(HttpStatus.CREATED).body("Filiere CREATED Successful");
     }

@@ -6,7 +6,6 @@ import com.example.pfabackend.model.Classe;
 import com.example.pfabackend.repository.EmploiDuTempsRepository;
 import com.example.pfabackend.service.ClasseService;
 import com.example.pfabackend.service.ElementService;
-import com.example.pfabackend.service.EmploiDuTempsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,6 @@ public class ClasseController {
                 classeMapper.toclasse(
                         classeRequest,
                        elementService.getElement(classeRequest.getElement_id())
-//                        emploiDuTempsRepository.findByClasseId(classeRequest.getId())
                 ));
         return status(HttpStatus.CREATED).body("Classe CREATED Successful");
     }
@@ -47,7 +45,8 @@ public class ClasseController {
     }
 
     @PutMapping()
-    public ResponseEntity<Classe> updateClasse(@RequestBody Classe classe) {
+    public ResponseEntity<Classe> updateClasse(@RequestBody ClasseRequest classeRequest) {
+        Classe classe = classeMapper.toclasse(classeRequest,elementService.getElement(classeRequest.getElement_id()));
         return status(HttpStatus.OK).body(classeService.updateClasse(classe));
     }
 

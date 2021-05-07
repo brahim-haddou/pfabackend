@@ -1,6 +1,6 @@
 package com.example.pfabackend.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +28,7 @@ public class Classe {
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     private Element element;
 
+    @JsonIgnore
     @OneToMany(mappedBy ="classe")
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }

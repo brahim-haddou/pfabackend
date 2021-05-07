@@ -12,4 +12,6 @@ import java.util.Set;
 
 @Repository
 public interface ElementRepository extends JpaRepository<Element, Long> {
+
+    List<Element> findAllByElementId(Long id);
 }

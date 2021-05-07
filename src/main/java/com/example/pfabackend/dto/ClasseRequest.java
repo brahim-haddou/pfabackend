@@ -13,7 +13,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ClasseRequest {
     private Long id;
     private String nom;
