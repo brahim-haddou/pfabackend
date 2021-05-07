@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -19,6 +20,7 @@ import java.util.List;
 @Transactional
 public class ModuleService {
     private final ModuleRepository moduleRepository;
+    private final ElementRepository elementRepository;
 
     public void saveModule(Module module){
         moduleRepository.save(module);
@@ -35,11 +37,16 @@ public class ModuleService {
         return moduleRepository.findById(id)
                 .orElseThrow(() -> new ProfesseurNotFoundException( "Module With Id "+ id +" Not Found"));
     }
+
     @Transactional(readOnly = true)
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
     }
     public void deleteModule(Long id) {
         moduleRepository.deleteById(id);
+    }
+
+    public List<Module> getModulesByFiliereId(Long id) {
+        return moduleRepository.findAllByFiliereId(id);
     }
 }

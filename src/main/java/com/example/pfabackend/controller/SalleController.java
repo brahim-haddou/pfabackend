@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/salle")
+@RequestMapping("/api/auth/salle")
 @AllArgsConstructor
 public class SalleController {
 

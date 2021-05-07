@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/element")
+@RequestMapping("/api/auth/element")
 @AllArgsConstructor
 public class ElementController {
     private final ElementService elementService;

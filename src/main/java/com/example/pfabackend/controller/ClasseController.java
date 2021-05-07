@@ -1,9 +1,12 @@
 package com.example.pfabackend.controller;
 
+import com.example.pfabackend.dto.ClasseRequest;
+import com.example.pfabackend.mapper.ClasseMapper;
 import com.example.pfabackend.model.Classe;
-import com.example.pfabackend.model.Professeur;
+import com.example.pfabackend.repository.EmploiDuTempsRepository;
 import com.example.pfabackend.service.ClasseService;
-import com.example.pfabackend.service.ProfesseurService;
+import com.example.pfabackend.service.ElementService;
+import com.example.pfabackend.service.EmploiDuTempsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +17,22 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/classe")
+@RequestMapping("/api/auth/classe")
 @AllArgsConstructor
 public class ClasseController {
     private final ClasseService classeService;
+    private final ElementService elementService;
+    private final EmploiDuTempsRepository emploiDuTempsRepository;
+    private final ClasseMapper classeMapper;
 
     @PostMapping
-    public ResponseEntity<String> createClasse(@RequestBody Classe classe) {
-        classeService.saveClasse(classe);
+    public ResponseEntity<String> createClasse(@RequestBody ClasseRequest classeRequest) {
+        classeService.saveClasse(
+                classeMapper.toclasse(
+                        classeRequest,
+                       elementService.getElement(classeRequest.getElement_id())
+//                        emploiDuTempsRepository.findByClasseId(classeRequest.getId())
+                ));
         return status(HttpStatus.CREATED).body("Classe CREATED Successful");
     }
 

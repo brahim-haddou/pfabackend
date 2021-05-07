@@ -1,6 +1,9 @@
 package com.example.pfabackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +24,8 @@ public class Filiere {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+
     @JsonIgnore
     @OneToMany(mappedBy = "filiere")
     private Set<Module> modules = new HashSet();
-
 }

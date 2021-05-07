@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/professeur")
+@RequestMapping("/api/auth/professeur")
 @AllArgsConstructor
 public class ProfesseurController {
     private final ProfesseurService professeurService;

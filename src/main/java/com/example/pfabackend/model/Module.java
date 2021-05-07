@@ -1,5 +1,6 @@
 package com.example.pfabackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,11 +23,14 @@ public class Module {
     private Long id;
     private String nom;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "module")
+    private Set<Element> elements = new HashSet();
+
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "filiere_id", referencedColumnName = "id")
     private Filiere filiere;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "module")
-    private Set<Element> elements = new HashSet();
 }

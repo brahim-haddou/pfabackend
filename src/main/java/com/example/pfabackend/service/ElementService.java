@@ -2,6 +2,7 @@ package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
 import com.example.pfabackend.model.Element;
+import com.example.pfabackend.model.Module;
 import com.example.pfabackend.repository.ElementRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,4 +40,5 @@ public class ElementService {
     public void deleteElement(Long id) {
         elementRepository.deleteById(id);
     }
+
 }

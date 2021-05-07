@@ -22,6 +22,8 @@ public class Professeur {
     private Long id;
     private String nom;
 
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "professeur_element",
@@ -30,6 +32,7 @@ public class Professeur {
     )
     private Set<Element> elements = new HashSet();
 
+    @JsonIgnore
     @OneToMany(mappedBy ="professeur")
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
     

@@ -1,6 +1,7 @@
 package com.example.pfabackend.controller;
 
 import com.example.pfabackend.model.Filiere;
+import com.example.pfabackend.model.Module;
 import com.example.pfabackend.service.FiliereService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/filiere")
+@RequestMapping("/api/auth/filiere")
 @AllArgsConstructor
 public class FiliereController {
     private final FiliereService filiereService;
@@ -32,7 +33,6 @@ public class FiliereController {
     public ResponseEntity<Filiere> getFiliere(@PathVariable Long id) {
         return status(HttpStatus.OK).body(filiereService.getFiliere(id));
     }
-
     @PutMapping()
     public ResponseEntity<Filiere> updateFiliere(@RequestBody Filiere filiere) {
         return status(HttpStatus.OK).body(filiereService.updateFiliere(filiere));
@@ -42,5 +42,10 @@ public class FiliereController {
     public ResponseEntity<String> deleteFiliere(@PathVariable Long id) {
         filiereService.deleteFiliere(id);
         return status(HttpStatus.OK).body("Filiere Deleted Successful");
+    }
+
+    @GetMapping("/{id}/modules")
+    public ResponseEntity<List<Module>> getFiliereModules(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(filiereService.getFiliereModules(id));
     }
 }

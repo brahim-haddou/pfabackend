@@ -1,7 +1,9 @@
 package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
+import com.example.pfabackend.model.Element;
 import com.example.pfabackend.model.Filiere;
+import com.example.pfabackend.model.Module;
 import com.example.pfabackend.model.Professeur;
 import com.example.pfabackend.repository.FiliereRepository;
 import com.example.pfabackend.repository.ProfesseurRepository;
@@ -18,6 +20,7 @@ import java.util.List;
 @Transactional
 public class FiliereService {
     private final FiliereRepository filiereRepository;
+    private final ModuleService moduleService;
 
     public void saveFiliere(Filiere filiere){
         filiereRepository.save(filiere);
@@ -40,5 +43,11 @@ public class FiliereService {
     }
     public void deleteFiliere(Long id) {
         filiereRepository.deleteById(id);
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Module> getFiliereModules(Long id) {
+        return moduleService.getModulesByFiliereId(id);
     }
 }
