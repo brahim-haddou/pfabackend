@@ -25,7 +25,12 @@ public class ModuleController {
 
     @PostMapping
     public ResponseEntity<String> createModule(@RequestBody ModuleRequest moduleRequest) {
-        moduleService.saveModule(moduleMapper.tomodule(moduleRequest, filiereService.getFiliere(moduleRequest.getFiliere_id())));
+        moduleService.saveModule(
+                moduleMapper.toModule(
+                        moduleRequest,
+                        filiereService.getFiliere(moduleRequest.getFiliere_id())
+                )
+        );
         return status(HttpStatus.CREATED).body("Module CREATED Successful");
     }
 
@@ -41,7 +46,11 @@ public class ModuleController {
 
     @PutMapping()
     public ResponseEntity<Module> updateModule(@RequestBody ModuleRequest moduleRequest) {
-        Module module = moduleMapper.tomodule(moduleRequest, filiereService.getFiliere(moduleRequest.getFiliere_id()));
+        Module module = moduleMapper.toModule(
+                moduleRequest,
+                filiereService.getFiliere(moduleRequest.getFiliere_id()
+                )
+        );
         return status(HttpStatus.OK).body(moduleService.updateModule(module));
     }
 

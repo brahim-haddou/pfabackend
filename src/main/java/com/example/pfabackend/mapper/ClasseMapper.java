@@ -10,9 +10,9 @@ import org.mapstruct.Mapping;
 public interface ClasseMapper {
 
     @Mapping( target = "element",  source = "element")
-    @Mapping( target = "id", source = "request.id")
-    @Mapping( target = "nom" , source = "request.nom")
-    @Mapping( target = "type" , source = "request.type")
-    @Mapping( target = "maxEtudiant" ,source = "request.maxEtudiant")
-    Classe toclasse(ClasseRequest request, Element element);
+    @Mapping( target = "id", source = "classeRequest.id")
+    @Mapping( target = "nom" , source = "classeRequest.nom")
+    @Mapping( target = "type" , source = "classeRequest.type")
+    @Mapping( target = "maxEtudiant" ,source = "classeRequest.maxEtudiant")
+    Classe toClasse(ClasseRequest classeRequest, Element element);
 }

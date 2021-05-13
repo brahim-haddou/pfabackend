@@ -3,7 +3,6 @@ package com.example.pfabackend.controller;
 import com.example.pfabackend.dto.ClasseRequest;
 import com.example.pfabackend.mapper.ClasseMapper;
 import com.example.pfabackend.model.Classe;
-import com.example.pfabackend.repository.EmploiDuTempsRepository;
 import com.example.pfabackend.service.ClasseService;
 import com.example.pfabackend.service.ElementService;
 import lombok.AllArgsConstructor;
@@ -20,16 +19,15 @@ import static org.springframework.http.ResponseEntity.status;
 @AllArgsConstructor
 public class ClasseController {
     private final ClasseService classeService;
-    private final ElementService elementService;
-    private final EmploiDuTempsRepository emploiDuTempsRepository;
     private final ClasseMapper classeMapper;
+    private final ElementService elementService;
 
     @PostMapping
     public ResponseEntity<String> createClasse(@RequestBody ClasseRequest classeRequest) {
         classeService.saveClasse(
-                classeMapper.toclasse(
+                classeMapper.toClasse(
                         classeRequest,
-                       elementService.getElement(classeRequest.getElement_id())
+                        elementService.getElement(classeRequest.getElement_id())
                 ));
         return status(HttpStatus.CREATED).body("Classe CREATED Successful");
     }
@@ -46,7 +44,7 @@ public class ClasseController {
 
     @PutMapping()
     public ResponseEntity<Classe> updateClasse(@RequestBody ClasseRequest classeRequest) {
-        Classe classe = classeMapper.toclasse(classeRequest,elementService.getElement(classeRequest.getElement_id()));
+        Classe classe = classeMapper.toClasse(classeRequest,elementService.getElement(classeRequest.getElement_id()));
         return status(HttpStatus.OK).body(classeService.updateClasse(classe));
     }
 

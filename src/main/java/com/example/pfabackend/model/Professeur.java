@@ -24,16 +24,14 @@ public class Professeur {
 
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "professeur_element",
-            joinColumns = @JoinColumn(name = "professeur_id"),
-            inverseJoinColumns = @JoinColumn(name = "element_id")
+    @OneToMany(
+            mappedBy = "professeur",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
-    private Set<Element> elements = new HashSet();
+    private Set<ProfesseurElement> professeurElements = new HashSet();
 
     @JsonIgnore
     @OneToMany(mappedBy ="professeur")
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
-    
 }

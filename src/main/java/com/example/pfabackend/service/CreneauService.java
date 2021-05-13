@@ -41,4 +41,8 @@ public class CreneauService {
     public void deleteCreneau(Long id) {
         creneauRepository.deleteById(id);
     }
+
+    public void deleteAllCreneau() {
+        creneauRepository.deleteAll();
+    }
 }

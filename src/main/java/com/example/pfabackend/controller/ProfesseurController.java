@@ -1,5 +1,6 @@
 package com.example.pfabackend.controller;
 
+import com.example.pfabackend.model.Element;
 import com.example.pfabackend.model.Professeur;
 import com.example.pfabackend.service.ProfesseurService;
 import lombok.AllArgsConstructor;
@@ -42,5 +43,9 @@ public class ProfesseurController {
     public ResponseEntity<String> deleteProfesseur(@PathVariable Long id) {
         professeurService.deleteProfesseur(id);
         return status(HttpStatus.OK).body("Professeur Deleted Successful");
+    }
+    @GetMapping("/{id}/elements")
+    public ResponseEntity<List<Element>> getAllProfesseurs(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(professeurService.getProfesseurElements(id));
     }
 }

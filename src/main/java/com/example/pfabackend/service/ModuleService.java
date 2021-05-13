@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -52,6 +51,6 @@ public class ModuleService {
     }
 
     public List<Element> getModuleElements(Long id) {
-        return elementRepository.findAllByElementId(id);
+        return elementRepository.findAllByModuleId(id);
     }
 }

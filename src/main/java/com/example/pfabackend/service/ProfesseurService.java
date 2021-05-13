@@ -1,7 +1,9 @@
 package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
+import com.example.pfabackend.model.Element;
 import com.example.pfabackend.model.Professeur;
+import com.example.pfabackend.repository.ElementRepository;
 import com.example.pfabackend.repository.ProfesseurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import java.util.List;
 public class ProfesseurService {
 
     private final ProfesseurRepository professeurRepository;
+    private final ElementRepository elementRepository;
 
     public void save(Professeur professeur){
         professeurRepository.save(professeur);
@@ -41,5 +44,9 @@ public class ProfesseurService {
 
     public void deleteProfesseur(Long id) {
         professeurRepository.deleteById(id);
+    }
+
+    public List<Element> getProfesseurElements(Long id) {
+        return  elementRepository.findAllByProfesseurElementsProfesseurId(id);
     }
 }

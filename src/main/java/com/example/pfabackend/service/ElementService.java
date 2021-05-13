@@ -1,9 +1,14 @@
 package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
+import com.example.pfabackend.model.Classe;
 import com.example.pfabackend.model.Element;
-import com.example.pfabackend.model.Module;
+import com.example.pfabackend.model.Professeur;
+import com.example.pfabackend.model.ProfesseurElement;
+import com.example.pfabackend.repository.ClasseRepository;
 import com.example.pfabackend.repository.ElementRepository;
+import com.example.pfabackend.repository.ProfesseurElementRepository;
+import com.example.pfabackend.repository.ProfesseurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +22,9 @@ import java.util.List;
 @Transactional
 public class ElementService {
     private final ElementRepository elementRepository;
+    private final ClasseRepository classRepository;
+    private final ProfesseurRepository professeurRepository;
+    private final ProfesseurElementRepository professeurElementRepository;
 
     public void saveElement(Element element){
         elementRepository.save(element);
@@ -26,6 +34,7 @@ public class ElementService {
                 .orElseThrow(() -> new ProfesseurNotFoundException( "Element With Id "+ element.getId() +" Not Found"));
 
         elem.setNom(element.getNom());
+        elem.setModule(element.getModule());
         return elementRepository.save(elem);
     }
     @Transactional(readOnly = true)
@@ -41,4 +50,31 @@ public class ElementService {
         elementRepository.deleteById(id);
     }
 
+    public List<Classe> getElementClasses(Long id) {
+        return classRepository.findAllByElementId(id);
+    }
+
+    public List<Professeur> getElementProfesseurs(Long id) {
+        return  professeurRepository.findAllByProfesseurElementsElementId(id);
+    }
+
+    public String addProfesseurToElement(Long eid, Long pid) {
+        if(professeurElementRepository.getByElementIdAndProfesseurId(eid,pid) == null){
+            professeurElementRepository.saveAndFlush(
+                    new ProfesseurElement(null,
+                            professeurRepository.findById(pid)
+                                    .orElseThrow(() -> new ProfesseurNotFoundException( "Professeur With Id "+ pid +" Not Found")),
+                            elementRepository.findById(eid)
+                                    .orElseThrow(() -> new ProfesseurNotFoundException( "Element With Id "+ eid +" Not Found"))
+                    )
+            );
+            return "Done";
+        }
+        return "already existed";
+    }
+
+    public String deleteProfesseurFromElement(Long eid, Long pid) {
+        professeurElementRepository.deleteByElementIdAndProfesseurId(eid,pid);
+        return "Done";
+    }
 }

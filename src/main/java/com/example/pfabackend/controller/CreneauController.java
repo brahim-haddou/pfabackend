@@ -43,4 +43,9 @@ public class CreneauController {
         creneauService.deleteCreneau(id);
         return status(HttpStatus.OK).body("Creneau Deleted Successful");
     }
+    @DeleteMapping
+    public ResponseEntity<String> deleteCreneau() {
+        creneauService.deleteAllCreneau();
+        return status(HttpStatus.OK).body("Creneau Deleted Successful");
+    }
 }

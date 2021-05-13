@@ -9,10 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ModuleMapper {
 
-
-    @Mapping(target = "elements", source = "")
     @Mapping(target = "filiere", source = "filiere")
-    @Mapping(target = "id", source = "request.id")
-    @Mapping(target = "nom", source = "request.nom")
-    Module tomodule(ModuleRequest request, Filiere filiere);
+    @Mapping(target = "id", source = "moduleRequest.id")
+    @Mapping(target = "nom", source = "moduleRequest.nom")
+    Module toModule(ModuleRequest moduleRequest, Filiere filiere);
 }
