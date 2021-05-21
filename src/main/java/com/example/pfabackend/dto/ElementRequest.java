@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class ElementRequest {
     private Long id;
     private String nom;
-    private Long module_id;
+    private Long moduleId;
 }

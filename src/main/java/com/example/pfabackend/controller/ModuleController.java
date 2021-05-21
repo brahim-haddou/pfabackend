@@ -28,7 +28,7 @@ public class ModuleController {
         moduleService.saveModule(
                 moduleMapper.toModule(
                         moduleRequest,
-                        filiereService.getFiliere(moduleRequest.getFiliere_id())
+                        filiereService.getFiliere(moduleRequest.getFiliereId())
                 )
         );
         return status(HttpStatus.CREATED).body("Module CREATED Successful");
@@ -48,7 +48,7 @@ public class ModuleController {
     public ResponseEntity<Module> updateModule(@RequestBody ModuleRequest moduleRequest) {
         Module module = moduleMapper.toModule(
                 moduleRequest,
-                filiereService.getFiliere(moduleRequest.getFiliere_id()
+                filiereService.getFiliere(moduleRequest.getFiliereId()
                 )
         );
         return status(HttpStatus.OK).body(moduleService.updateModule(module));

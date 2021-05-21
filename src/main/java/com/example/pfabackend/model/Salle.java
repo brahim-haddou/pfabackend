@@ -1,5 +1,6 @@
 package com.example.pfabackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Salle {
     private String type;
     private int maxPlace;
 
+    @JsonIgnore
     @OneToMany(mappedBy ="salle")
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }

@@ -27,7 +27,7 @@ public class ClasseController {
         classeService.saveClasse(
                 classeMapper.toClasse(
                         classeRequest,
-                        elementService.getElement(classeRequest.getElement_id())
+                        elementService.getElement(classeRequest.getElementId())
                 ));
         return status(HttpStatus.CREATED).body("Classe CREATED Successful");
     }
@@ -44,7 +44,7 @@ public class ClasseController {
 
     @PutMapping()
     public ResponseEntity<Classe> updateClasse(@RequestBody ClasseRequest classeRequest) {
-        Classe classe = classeMapper.toClasse(classeRequest,elementService.getElement(classeRequest.getElement_id()));
+        Classe classe = classeMapper.toClasse(classeRequest,elementService.getElement(classeRequest.getElementId()));
         return status(HttpStatus.OK).body(classeService.updateClasse(classe));
     }
 

@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClasseRequest {
-    private Long id;
-    private String nom;
-    private String type;
-    private int maxEtudiant;
-    private Long elementId;
+public class EmploiDuTempsRequest {
+    Long id;
+    Long classeId;
+    Long professeurId;
+    Long salleId;
+    Long creneauId;
 }

@@ -29,7 +29,7 @@ public class ElementController {
 
         elementService.saveElement(
                 elementMapper.toElement(elementRequest,
-                moduleService.getModule(elementRequest.getModule_id())
+                moduleService.getModule(elementRequest.getModuleId())
                 )
         );
         return status(HttpStatus.CREATED).body("Element CREATED Successful");
@@ -47,7 +47,7 @@ public class ElementController {
     @PutMapping()
     public ResponseEntity<Element> updateElement(@RequestBody ElementRequest elementRequest) {
         Element element = elementMapper.toElement(elementRequest,
-                moduleService.getModule(elementRequest.getModule_id())
+                moduleService.getModule(elementRequest.getModuleId())
         );
         return status(HttpStatus.OK).body(elementService.updateElement(element));
     }
