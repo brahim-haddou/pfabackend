@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ExcelGenerator {
-    private static String[] COLUMNs = {"Lundi", "mercredi", "mardi","jeudi", "vendredi", "samedi", " "," ", " "};
+    private static final String[] COLUMNs = {"Lundi", "mercredi", "mardi","jeudi", "vendredi", "samedi", " "," ", " "};
     public static ByteArrayInputStream customersToExcel(List<EmploiDuTemps> emploiDuTemps,List<Creneau> creneau) throws IOException {
 
 
@@ -21,33 +21,36 @@ public class ExcelGenerator {
         ){
             CreationHelper createHelper = workbook.getCreationHelper();
 
-            Sheet sheet = workbook.createSheet("Customers");
+            Sheet sheet = workbook.createSheet(emploiDuTemps.get(0).getClasse().getElement().getModule().getFiliere().getNom());
 
             // TODO: fixing the form of the excel file
 
-            int rowIdx = 1;
+            int rowIdx = 2;
             Row headerRow = sheet.createRow(3);
             for (Creneau c: creneau) {
                 headerRow.createCell(rowIdx).setCellValue(c.getDebut() +" - "+c.getFin());
                 rowIdx++;
             }
 
-            int col = 0;
+            int col = 4;
             for (String c :COLUMNs) {
-                Row row = sheet.createRow(col+3);
-                row.createCell(0).setCellValue(c);
+                Row row = sheet.createRow(col);
+                System.out.println(c);
+                row.createCell(1).setCellValue(c);
+                col++;
             }
-//            for(EmploiDuTemps e : emploiDuTemps){
-//                int[] idx = getCreneauIndeses(creneau, e.getCreneau());
-//                Row row =sheet.getRow(idx[0]);
-//                row.createCell(idx[1]).setCellValue(
-//                        e.getClasse().getNom() + "\n"+
-//                        e.getClasse().getElement().getNom() + "\n"+
-//                        e.getProfesseur().getNom() + "\n"+
-//                        e.getSalle().getNom() + "\n"+
-//                        e.getSalle().getNom() + "\n"
-//                );
-//            }
+            for(EmploiDuTemps e : emploiDuTemps){
+                int[] idx = getCreneauIndeses(creneau, e.getCreneau());
+                Row row =sheet.getRow(idx[0]);
+                row.createCell(idx[1]).setCellValue(
+                        e.getClasse().getNom() + "\n"+
+                        e.getClasse().getElement().getNom() + "\n"+
+                        e.getProfesseur().getNom() + "\n"+
+                        e.getSalle().getNom() + "\n"+
+                        e.getSalle().getNom() + "\n"
+                );
+            }
+
 //            for (EmploiDuTemps e : emploiDuTemps) {
 //                Row row = sheet.createRow(rowIdx++);
 //
@@ -88,15 +91,15 @@ public class ExcelGenerator {
     private static int[] getCreneauIndeses(List<Creneau> creneau, Creneau cr){
         int ligIdx = 4;
         for(String j :COLUMNs){
-            if(!j.equals(cr.getJour())){
+            if(j.equals(cr.getJour())){
                 break;
             }else{
                 ligIdx++;
             }
         }
-        int colIdx = 1;
+        int colIdx = 2;
         for(Creneau c: creneau){
-            if(c.getDebut() != cr.getDebut()){
+            if(c.getDebut() == cr.getDebut()){
                 break;
             }else{
                 colIdx++;
