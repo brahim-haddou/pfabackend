@@ -2,8 +2,6 @@ package com.example.pfabackend.controller;
 
 import com.example.pfabackend.dto.EmploiDuTempsRequest;
 import com.example.pfabackend.model.EmploiDuTemps;
-import com.example.pfabackend.model.ExcelGenerator;
-import com.example.pfabackend.repository.CreneauRepository;
 import com.example.pfabackend.service.EmploiDuTempsService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -24,7 +22,13 @@ import static org.springframework.http.ResponseEntity.status;
 public class EmploiDuTempsController {
 
     private final EmploiDuTempsService emploiDuTempsService;
-    private final CreneauRepository creaRepository;
+
+    @GetMapping
+    public ResponseEntity<List<EmploiDuTemps>> getFiliereEmploiDuTemps() {
+        return status(HttpStatus.OK).body(emploiDuTempsService.findAll());
+    }
+    // TODO: add  Get emploiDuTemps/salles/id
+
     @GetMapping("/filiere/{id}")
     public ResponseEntity<List<EmploiDuTemps>> getFiliereEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.getFiliereEmploiDuTemps(id));
@@ -49,41 +53,32 @@ public class EmploiDuTempsController {
         return status(HttpStatus.OK).body("EmploiDuTemps Deleted Successful");
     }
 
-    // TODO: add | delete | update for all modules
-
-
     @PutMapping("/{id}/classe/{cid}")
     public ResponseEntity<EmploiDuTemps> updateClasseEmploiDuTemps(@PathVariable Long id, @PathVariable Long cid){
         return status(HttpStatus.OK).body(emploiDuTempsService.updateClasseEmploiDuTemps(id,cid));
     }
-    @DeleteMapping("/{id}/classe")
-    public ResponseEntity<String> deleteClasseFromEmploiDuTemps(@PathVariable Long id) {
-        emploiDuTempsService.deleteClasseFromEmploiDuTemps(id);
-        return status(HttpStatus.OK).body("EmploiDuTemps Deleted Successful");
-    }
-
     @PutMapping("/{id}/professeur/{pid}")
     public ResponseEntity<EmploiDuTemps> updateProfesseurEmploiDuTemps(@PathVariable Long id, @PathVariable Long pid){
         return status(HttpStatus.OK).body(emploiDuTempsService.updateProfesseurEmploiDuTemps(id,pid));
     }
-    @DeleteMapping("/{id}/professeur")
-    public ResponseEntity<String> deleteProfesseurFromEmploiDuTemps(@PathVariable Long id) {
-        emploiDuTempsService.deleteProfesseurEmploiDuTemps(id);
-        return status(HttpStatus.OK).body("EmploiDuTemps Deleted Successful");
-    }
-
     @PutMapping("/{id}/salle/{sid}")
     public ResponseEntity<EmploiDuTemps> updateSalleEmploiDuTemps(@PathVariable Long id, @PathVariable Long sid){
         return status(HttpStatus.OK).body(emploiDuTempsService.updateSalleEmploiDuTemps(id,sid));
     }
+
+    @DeleteMapping("/{id}/classe")
+    public ResponseEntity<EmploiDuTemps> deleteClasseFromEmploiDuTemps(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(emploiDuTempsService.deleteClasseFromEmploiDuTemps(id));
+    }
+    @DeleteMapping("/{id}/professeur")
+    public ResponseEntity<EmploiDuTemps> deleteProfesseurFromEmploiDuTemps(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(emploiDuTempsService.deleteProfesseurEmploiDuTemps(id));
+    }
     @DeleteMapping("/{id}/salle")
-    public ResponseEntity<String> deleteSalleFromEmploiDuTemps(@PathVariable Long id) {
-        emploiDuTempsService.deleteSalleEmploiDuTemps(id);
-        return status(HttpStatus.OK).body("EmploiDuTemps Deleted Successful");
+    public ResponseEntity<EmploiDuTemps> deleteSalleFromEmploiDuTemps(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(emploiDuTempsService.deleteSalleEmploiDuTemps(id));
     }
 
-
-    // TODO: generate excel file
     @GetMapping(value = "/filiere/{id}/Excel")
     public ResponseEntity<InputStreamResource> excelCustomersReport(@PathVariable Long id) throws IOException {
         ByteArrayInputStream in = emploiDuTempsService.getFiliereEmploiDuTempsExcel(id);

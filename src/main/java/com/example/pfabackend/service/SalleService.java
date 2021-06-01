@@ -1,9 +1,7 @@
 package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
-import com.example.pfabackend.model.Classe;
 import com.example.pfabackend.model.Salle;
-import com.example.pfabackend.repository.ClasseRepository;
 import com.example.pfabackend.repository.SalleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

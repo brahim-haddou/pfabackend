@@ -1,8 +1,6 @@
 package com.example.pfabackend.controller;
 
-import com.example.pfabackend.model.Module;
 import com.example.pfabackend.model.Salle;
-import com.example.pfabackend.service.ModuleService;
 import com.example.pfabackend.service.SalleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

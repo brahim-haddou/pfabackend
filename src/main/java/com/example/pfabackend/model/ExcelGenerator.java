@@ -1,13 +1,13 @@
 package com.example.pfabackend.model;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
-import org.hibernate.annotations.Columns;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class ExcelGenerator {
@@ -17,13 +17,12 @@ public class ExcelGenerator {
 
         try(
                 Workbook workbook = new XSSFWorkbook();
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                ByteArrayOutputStream out = new ByteArrayOutputStream()
         ){
-            CreationHelper createHelper = workbook.getCreationHelper();
+            // TODO: add style to excel file
+//            CreationHelper createHelper = workbook.getCreationHelper();
 
             Sheet sheet = workbook.createSheet(emploiDuTemps.get(0).getClasse().getElement().getModule().getFiliere().getNom());
-
-            // TODO: fixing the form of the excel file
 
             int rowIdx = 2;
             Row headerRow = sheet.createRow(3);
@@ -50,39 +49,6 @@ public class ExcelGenerator {
                         e.getSalle().getNom() + "\n"
                 );
             }
-
-//            for (EmploiDuTemps e : emploiDuTemps) {
-//                Row row = sheet.createRow(rowIdx++);
-//
-//                row.createCell(0).setCellValue(e.getId());
-//                row.createCell(1).setCellValue(e.getClasse().getNom());
-//                row.createCell(2).setCellValue(e.getProfesseur().getNom());
-//                row.createCell(3).setCellValue(e.getSalle().getNom());
-//            }
-            // Row for Header
-
-
-            // Header
-//            for (int col = 0; col < COLUMNs.length; col++) {
-//                Cell cell = headerRow.createCell(col);
-//                cell.setCellValue(COLUMNs[col]);
-//                cell.setCellStyle(headerCellStyle);
-//            }
-//
-//            // CellStyle for Age
-//            CellStyle ageCellStyle = workbook.createCellStyle();
-//            ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
-//
-//            int rowIdx = 1;
-//            for (EmploiDuTemps e : emploiDuTemps) {
-//                Row row = sheet.createRow(rowIdx++);
-//
-//                row.createCell(0).setCellValue(e.getId());
-//                row.createCell(1).setCellValue(e.getClasse().getNom());
-//                row.createCell(2).setCellValue(e.getProfesseur().getNom());
-//                row.createCell(3).setCellValue(e.getSalle().getNom());
-//            }
-
             workbook.write(out);
             return new ByteArrayInputStream(out.toByteArray());
         }

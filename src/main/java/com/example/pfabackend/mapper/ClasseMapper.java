@@ -15,4 +15,5 @@ public interface ClasseMapper {
     @Mapping( target = "type" , source = "classeRequest.type")
     @Mapping( target = "maxEtudiant" ,source = "classeRequest.maxEtudiant")
     Classe toClasse(ClasseRequest classeRequest, Element element);
+
 }

@@ -1,12 +1,9 @@
 package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
-import com.example.pfabackend.model.Element;
 import com.example.pfabackend.model.Filiere;
 import com.example.pfabackend.model.Module;
-import com.example.pfabackend.model.Professeur;
 import com.example.pfabackend.repository.FiliereRepository;
-import com.example.pfabackend.repository.ProfesseurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
