@@ -3,6 +3,8 @@ package com.example.pfabackend.controller;
 import com.example.pfabackend.dto.EmploiDuTempsRequest;
 import com.example.pfabackend.model.EmploiDuTemps;
 import com.example.pfabackend.service.EmploiDuTempsService;
+import com.example.pfabackend.service.FiliereService;
+import com.example.pfabackend.service.SalleService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -22,12 +24,17 @@ import static org.springframework.http.ResponseEntity.status;
 public class EmploiDuTempsController {
 
     private final EmploiDuTempsService emploiDuTempsService;
+    private final FiliereService filiereService;
+    private final SalleService salleService;
 
     @GetMapping
     public ResponseEntity<List<EmploiDuTemps>> getFiliereEmploiDuTemps() {
         return status(HttpStatus.OK).body(emploiDuTempsService.findAll());
     }
-    // TODO: add  Get emploiDuTemps/salles/id
+    @GetMapping("/salle/{id}")
+    public ResponseEntity<List<EmploiDuTemps>> getSalleEmploiDuTemps(@PathVariable Long id) {
+        return status(HttpStatus.OK).body(emploiDuTempsService.getSalleEmploiDuTemps(id));
+    }
 
     @GetMapping("/filiere/{id}")
     public ResponseEntity<List<EmploiDuTemps>> getFiliereEmploiDuTemps(@PathVariable Long id) {
@@ -79,15 +86,24 @@ public class EmploiDuTempsController {
         return status(HttpStatus.OK).body(emploiDuTempsService.deleteSalleEmploiDuTemps(id));
     }
 
-    @GetMapping(value = "/filiere/{id}/Excel")
-    public ResponseEntity<InputStreamResource> excelCustomersReport(@PathVariable Long id) throws IOException {
+    @GetMapping(value = "/filiere/{id}/excel")
+    public ResponseEntity<InputStreamResource> excelFiliereEmploiDuTemps(@PathVariable Long id) throws IOException {
         ByteArrayInputStream in = emploiDuTempsService.getFiliereEmploiDuTempsExcel(id);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=emploiDuTempsService.xlsx");
+        headers.add("Content-Disposition", "attachment; filename="+filiereService.getFiliere(id).getNom()+"emploiDuTemps.xlsx");
         return ResponseEntity
                 .ok()
                 .headers(headers)
                 .body(new InputStreamResource(in));
     }
-
+    @GetMapping(value = "/salle/{id}/excel")
+    public ResponseEntity<InputStreamResource> excelSalleEmploiDuTemps(@PathVariable Long id) throws IOException {
+        ByteArrayInputStream in = emploiDuTempsService.getSalleEmploiDuTempsExcel(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename="+salleService.getSalle(id).getNom()+"DuTempsService.xlsx");
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new InputStreamResource(in));
+    }
 }

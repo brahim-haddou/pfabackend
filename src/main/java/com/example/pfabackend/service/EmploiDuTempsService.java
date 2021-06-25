@@ -2,6 +2,7 @@ package com.example.pfabackend.service;
 
 import com.example.pfabackend.dto.EmploiDuTempsRequest;
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
+import com.example.pfabackend.exceptions.SpringPfaException;
 import com.example.pfabackend.model.*;
 import com.example.pfabackend.repository.CreneauRepository;
 import com.example.pfabackend.repository.EmploiDuTempsRepository;
@@ -28,25 +29,42 @@ public class EmploiDuTempsService {
     private final CreneauRepository creneauRepository;
 
 
-    // TODO: Check if there is any match
-
     public EmploiDuTemps save(EmploiDuTempsRequest emploiDuTempsRequest){
-        Creneau creneau = creneauService.getCreneau(emploiDuTempsRequest.getCreneauId());
-        EmploiDuTemps emploiDuTemps = new EmploiDuTemps(null, null, null, null, creneau);
+        EmploiDuTemps emploiDuTemps = new EmploiDuTemps();
+        if(emploiDuTempsRepository.existsByClasseId(emploiDuTempsRequest.getClasseId()))
+        {
+            return update(emploiDuTempsRequest);
+        }
         if(emploiDuTempsRequest.getClasseId() != null)
         {
             Classe classe = classeService.getClasse(emploiDuTempsRequest.getClasseId());
             emploiDuTemps.setClasse(classe);
         }
-        if(emploiDuTempsRequest.getProfesseurId() != null)
-        {
-            Professeur professeur = professeurService.getProfesseur(emploiDuTempsRequest.getProfesseurId());
-            emploiDuTemps.setProfesseur(professeur);
+        else{
+            throw new SpringPfaException("test");
         }
         if(emploiDuTempsRequest.getCreneauId() != null)
         {
-            Salle salle = salleService.getSalle(emploiDuTempsRequest.getCreneauId());
-            emploiDuTemps.setSalle(salle);
+            Creneau creneau = creneauService.getCreneau(emploiDuTempsRequest.getCreneauId());
+            emploiDuTemps.setCreneau(creneau);
+            if(
+                    emploiDuTempsRequest.getSalleId() != null
+                            &&
+                            !emploiDuTempsRepository.existsBySalleIdAndCreneauId(emploiDuTempsRequest.getSalleId(),emploiDuTempsRequest.getCreneauId())
+            )
+            {
+                Salle salle = salleService.getSalle(emploiDuTempsRequest.getSalleId());
+                emploiDuTemps.setSalle(salle);
+            }
+            if(
+                    emploiDuTempsRequest.getProfesseurId() != null
+                            &&
+                            !emploiDuTempsRepository.existsByProfesseurIdAndCreneauId(emploiDuTempsRequest.getProfesseurId(),emploiDuTempsRequest.getCreneauId())
+            )
+            {
+                Professeur professeur = professeurService.getProfesseur(emploiDuTempsRequest.getProfesseurId());
+                emploiDuTemps.setProfesseur(professeur);
+            }
         }
         return emploiDuTempsRepository.save(emploiDuTemps);
     }
@@ -57,27 +75,32 @@ public class EmploiDuTempsService {
 
         if(emploiDuTempsRequest.getClasseId() != null)
         {
-            System.out.println("classe");
             Classe classe = classeService.getClasse(emploiDuTempsRequest.getClasseId());
             emploiDuTemps.setClasse(classe);
         }
-        if(emploiDuTempsRequest.getProfesseurId() != null)
-        {
-            System.out.println("professeur");
-            Professeur professeur = professeurService.getProfesseur(emploiDuTempsRequest.getProfesseurId());
-            emploiDuTemps.setProfesseur(professeur);
-        }
-        if(emploiDuTempsRequest.getSalleId() != null)
-        {
-            System.out.println("salle");
-            Salle salle = salleService.getSalle(emploiDuTempsRequest.getSalleId());
-            emploiDuTemps.setSalle(salle);
-        }
+
         if(emploiDuTempsRequest.getCreneauId() != null)
         {
-            System.out.println("creneau");
             Creneau creneau = creneauService.getCreneau(emploiDuTempsRequest.getCreneauId());
             emploiDuTemps.setCreneau(creneau);
+            if(
+                    emploiDuTempsRequest.getSalleId() != null
+                    &&
+                    !emploiDuTempsRepository.existsBySalleIdAndCreneauId(emploiDuTempsRequest.getSalleId(),emploiDuTempsRequest.getCreneauId())
+            )
+            {
+                Salle salle = salleService.getSalle(emploiDuTempsRequest.getSalleId());
+                emploiDuTemps.setSalle(salle);
+            }
+            if(
+                    emploiDuTempsRequest.getProfesseurId() != null
+                    &&
+                    !emploiDuTempsRepository.existsByProfesseurIdAndCreneauId(emploiDuTempsRequest.getProfesseurId(),emploiDuTempsRequest.getCreneauId())
+            )
+            {
+                Professeur professeur = professeurService.getProfesseur(emploiDuTempsRequest.getProfesseurId());
+                emploiDuTemps.setProfesseur(professeur);
+            }
         }
         return emploiDuTempsRepository.save(emploiDuTemps);
     }
@@ -92,6 +115,15 @@ public class EmploiDuTempsService {
         return ExcelGenerator.customersToExcel(emploiTemps, creneau);
     }
 
+    public List<EmploiDuTemps> getSalleEmploiDuTemps(Long id) {
+        return emploiDuTempsRepository.findAllBySalleId(id);
+    }
+    public ByteArrayInputStream getSalleEmploiDuTempsExcel(Long id) throws IOException {
+        List<Creneau> creneau = creneauRepository.getAllByJourOrderByDebut("Lundi");
+        List<EmploiDuTemps> emploiTemps = emploiDuTempsRepository.findAllBySalleId(id);
+
+        return ExcelGenerator.customersToExcel(emploiTemps, creneau);
+    }
     public EmploiDuTemps getEmploiDuTemps(Long id) {
         return emploiDuTempsRepository.findById(id)
                 .orElseThrow(() -> new ProfesseurNotFoundException( "EmploiDuTemps With Id "+ id +" Not Found"));
@@ -149,4 +181,5 @@ public class EmploiDuTempsService {
         emploiTemps.setSalle(null);
         return emploiDuTempsRepository.save(emploiTemps);
     }
+
 }

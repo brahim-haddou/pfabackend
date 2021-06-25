@@ -10,6 +10,10 @@ import java.util.Set;
 
 @Repository
 public interface EmploiDuTempsRepository extends JpaRepository<EmploiDuTemps, Long> {
-    Set<EmploiDuTemps> findBySalleId(Long id);
+    EmploiDuTemps findByClasseId(Long id);
     List<EmploiDuTemps> findAllByClasseElementModuleFiliereId(Long id);
+    List<EmploiDuTemps> findAllBySalleId(Long id);
+    boolean existsByClasseId(Long id);
+    boolean existsByProfesseurIdAndCreneauId(Long pid,Long cid);
+    boolean existsBySalleIdAndCreneauId(Long sid,Long cid);
 }

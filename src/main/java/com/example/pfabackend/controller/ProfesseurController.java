@@ -19,13 +19,12 @@ public class ProfesseurController {
     private final ProfesseurService professeurService;
 
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody Professeur professeur) {
-        professeurService.save(professeur);
-        return status(HttpStatus.CREATED).body("Professeur CREATED Successful");
+    public ResponseEntity<Professeur> createProfesseur(@RequestBody Professeur professeur) {
+        return status(HttpStatus.CREATED).body(professeurService.save(professeur));
     }
 
     @GetMapping
-    public ResponseEntity<List<Professeur>> getAllPosts() {
+    public ResponseEntity<List<Professeur>> getAllProfesseurs() {
         return status(HttpStatus.OK).body(professeurService.getAllProfesseurs());
     }
 
@@ -45,7 +44,7 @@ public class ProfesseurController {
         return status(HttpStatus.OK).body("Professeur Deleted Successful");
     }
     @GetMapping("/{id}/elements")
-    public ResponseEntity<List<Element>> getAllProfesseurs(@PathVariable Long id) {
+    public ResponseEntity<List<Element>> getProfesseurElements(@PathVariable Long id) {
         return status(HttpStatus.OK).body(professeurService.getProfesseurElements(id));
     }
 }

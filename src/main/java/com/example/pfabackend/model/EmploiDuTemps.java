@@ -1,7 +1,6 @@
 package com.example.pfabackend.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +31,5 @@ public class EmploiDuTemps {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "creneau_id", referencedColumnName = "id")
     private Creneau creneau;
+
 }

@@ -21,8 +21,8 @@ public class ProfesseurService {
     private final ProfesseurRepository professeurRepository;
     private final ElementRepository elementRepository;
 
-    public void save(Professeur professeur){
-        professeurRepository.save(professeur);
+    public Professeur save(Professeur professeur){
+        return professeurRepository.save(professeur);
     }
     public Professeur updateProfesseur(Professeur professeur){
         Professeur prof = professeurRepository.findById(professeur.getId())
