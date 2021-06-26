@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ExcelGenerator {
-    private static final String[] COLUMNs = {"Lundi", "mercredi", "mardi","jeudi", "vendredi", "samedi"};
+    private static final String[] COLUMNs = {"Lundi", "Mercredi", "Mardi","Meudi", "Mendredi", "Samedi"};
     public static ByteArrayInputStream customersToExcel(List<EmploiDuTemps> emploiDuTemps,List<Creneau> creneau) throws IOException {
 
 
