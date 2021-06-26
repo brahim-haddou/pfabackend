@@ -26,7 +26,7 @@ public class Professeur {
     @JsonIgnore
     @OneToMany(
             mappedBy = "professeur",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             orphanRemoval = true
     )
     private Set<ProfesseurElement> professeurElements = new HashSet();

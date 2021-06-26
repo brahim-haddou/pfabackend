@@ -16,19 +16,19 @@ public class EmploiDuTemps {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "classe_id", referencedColumnName = "id")
     private Classe classe;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "professeur_id", referencedColumnName = "id")
     private Professeur professeur;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "salle_id", referencedColumnName = "id")
     private Salle salle;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "creneau_id", referencedColumnName = "id")
     private Creneau creneau;
 

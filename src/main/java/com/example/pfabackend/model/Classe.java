@@ -25,7 +25,7 @@ public class Classe {
     private int maxEtudiant;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     private Element element;
 

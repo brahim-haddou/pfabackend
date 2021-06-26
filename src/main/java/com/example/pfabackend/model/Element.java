@@ -34,7 +34,7 @@ public class Element {
     private Set<ProfesseurElement> professeurElements = new HashSet();
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
     
