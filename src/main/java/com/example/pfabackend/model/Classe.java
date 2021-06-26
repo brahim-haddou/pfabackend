@@ -25,11 +25,11 @@ public class Classe {
     private int maxEtudiant;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     private Element element;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="classe")
+    @OneToMany(mappedBy ="classe", cascade=CascadeType.ALL)
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }

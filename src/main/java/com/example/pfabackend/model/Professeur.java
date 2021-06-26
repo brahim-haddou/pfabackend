@@ -26,12 +26,12 @@ public class Professeur {
     @JsonIgnore
     @OneToMany(
             mappedBy = "professeur",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private Set<ProfesseurElement> professeurElements = new HashSet();
 
     @JsonIgnore
-    @OneToMany(mappedBy ="professeur")
+    @OneToMany(mappedBy ="professeur", cascade=CascadeType.ALL)
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }

@@ -25,6 +25,6 @@ public class Salle {
     private int maxPlace;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="salle")
+    @OneToMany(mappedBy ="salle", cascade=CascadeType.ALL)
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }

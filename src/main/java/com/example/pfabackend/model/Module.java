@@ -23,11 +23,11 @@ public class Module {
     private String nom;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "module")
+    @OneToMany(mappedBy = "module", cascade=CascadeType.ALL)
     private Set<Element> elements = new HashSet();
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "filiere_id", referencedColumnName = "id")
     private Filiere filiere;
 

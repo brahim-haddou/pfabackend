@@ -23,6 +23,6 @@ public class Filiere {
     private String nom;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "filiere")
+    @OneToMany(mappedBy = "filiere", cascade=CascadeType.ALL)
     private Set<Module> modules = new HashSet();
 }

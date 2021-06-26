@@ -29,12 +29,13 @@ public class Element {
 
     @JsonIgnore
     @OneToMany(
-            mappedBy = "element"
+            mappedBy = "element",
+            cascade=CascadeType.ALL
     )
     private Set<ProfesseurElement> professeurElements = new HashSet();
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
     

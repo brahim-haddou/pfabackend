@@ -25,6 +25,6 @@ public class Creneau {
     private float fin;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="creneau")
+    @OneToMany(mappedBy ="creneau", cascade=CascadeType.ALL)
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 }
