@@ -23,13 +23,12 @@ public class ClasseController {
     private final ElementService elementService;
 
     @PostMapping
-    public ResponseEntity<String> createClasse(@RequestBody ClasseRequest classeRequest) {
-        classeService.saveClasse(
+    public ResponseEntity<Classe> createClasse(@RequestBody ClasseRequest classeRequest) {
+        return status(HttpStatus.CREATED).body(classeService.saveClasse(
                 classeMapper.toClasse(
                         classeRequest,
                         elementService.getElement(classeRequest.getElementId())
-                ));
-        return status(HttpStatus.CREATED).body("Classe CREATED Successful");
+                )));
     }
 
     @GetMapping

@@ -25,14 +25,13 @@ public class ElementController {
     private final ModuleService moduleService;
 
     @PostMapping
-    public ResponseEntity<String> createElement(@RequestBody ElementRequest elementRequest) {
-
-        elementService.saveElement(
+    public ResponseEntity<Element> createElement(@RequestBody ElementRequest elementRequest) {
+        return status(HttpStatus.CREATED).body(elementService.saveElement(
                 elementMapper.toElement(elementRequest,
                 moduleService.getModule(elementRequest.getModuleId())
                 )
+            )
         );
-        return status(HttpStatus.CREATED).body("Element CREATED Successful");
     }
 
     @GetMapping("/{id}")

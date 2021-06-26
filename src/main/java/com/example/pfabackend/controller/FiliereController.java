@@ -19,9 +19,9 @@ public class FiliereController {
     private final FiliereService filiereService;
 
     @PostMapping
-    public ResponseEntity<String> createFiliere(@RequestBody Filiere filiere) {
-        filiereService.saveFiliere(filiere);
-        return status(HttpStatus.CREATED).body("Filiere CREATED Successful");
+    public ResponseEntity<Filiere> createFiliere(@RequestBody Filiere filiere) {
+
+        return status(HttpStatus.CREATED).body(filiereService.saveFiliere(filiere));
     }
 
     @GetMapping

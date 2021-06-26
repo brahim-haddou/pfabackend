@@ -19,8 +19,8 @@ public class FiliereService {
     private final FiliereRepository filiereRepository;
     private final ModuleService moduleService;
 
-    public void saveFiliere(Filiere filiere){
-        filiereRepository.save(filiere);
+    public Filiere saveFiliere(Filiere filiere){
+        return filiereRepository.save(filiere);
     }
     public Filiere updateFiliere(Filiere filiere){
         Filiere fil = filiereRepository.findById(filiere.getId())

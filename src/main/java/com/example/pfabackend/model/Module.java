@@ -26,7 +26,8 @@ public class Module {
     @OneToMany(mappedBy = "module")
     private Set<Element> elements = new HashSet();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "filiere_id", referencedColumnName = "id")
     private Filiere filiere;
 

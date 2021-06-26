@@ -24,6 +24,7 @@ public class Classe {
     private String type;
     private int maxEtudiant;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     private Element element;

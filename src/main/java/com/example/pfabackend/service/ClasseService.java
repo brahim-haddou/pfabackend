@@ -18,8 +18,8 @@ public class ClasseService {
 
     private final ClasseRepository classeRepository;
 
-    public void saveClasse(Classe classe){
-        classeRepository.save(classe);
+    public Classe saveClasse(Classe classe){
+        return classeRepository.save(classe);
     }
     public Classe updateClasse(Classe classe){
         Classe cla = classeRepository.findById(classe.getId())

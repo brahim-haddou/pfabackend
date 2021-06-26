@@ -21,8 +21,8 @@ public class ModuleService {
     private final ModuleRepository moduleRepository;
     private final ElementRepository elementRepository;
 
-    public void saveModule(Module module){
-        moduleRepository.save(module);
+    public Module saveModule(Module module){
+        return moduleRepository.save(module);
     }
     public Module updateModule(Module module){
         Module mod = moduleRepository.findById(module.getId())

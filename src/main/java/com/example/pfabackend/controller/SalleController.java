@@ -19,9 +19,9 @@ public class SalleController {
     private final SalleService salleService;
 
     @PostMapping
-    public ResponseEntity<String> createSallee(@RequestBody Salle salle) {
-        salleService.saveSalle(salle);
-        return status(HttpStatus.CREATED).body("Salle CREATED Successful");
+    public ResponseEntity<Salle> createSallee(@RequestBody Salle salle) {
+
+        return status(HttpStatus.CREATED).body(salleService.saveSalle(salle));
     }
 
     @GetMapping

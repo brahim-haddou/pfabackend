@@ -33,6 +33,7 @@ public class Element {
     )
     private Set<ProfesseurElement> professeurElements = new HashSet();
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;

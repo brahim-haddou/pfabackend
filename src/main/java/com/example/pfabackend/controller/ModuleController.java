@@ -24,14 +24,13 @@ public class ModuleController {
     private final ModuleMapper moduleMapper;
 
     @PostMapping
-    public ResponseEntity<String> createModule(@RequestBody ModuleRequest moduleRequest) {
-        moduleService.saveModule(
+    public ResponseEntity<Module> createModule(@RequestBody ModuleRequest moduleRequest) {
+        return status(HttpStatus.CREATED).body(moduleService.saveModule(
                 moduleMapper.toModule(
                         moduleRequest,
                         filiereService.getFiliere(moduleRequest.getFiliereId())
                 )
-        );
-        return status(HttpStatus.CREATED).body("Module CREATED Successful");
+        ));
     }
 
     @GetMapping

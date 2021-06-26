@@ -17,8 +17,8 @@ import java.util.List;
 public class CreneauService {
     private final CreneauRepository creneauRepository;
 
-    public void saveCreneau(Creneau creneau){
-        creneauRepository.save(creneau);
+    public Creneau saveCreneau(Creneau creneau){
+        return creneauRepository.save(creneau);
     }
     public Creneau updateCreneau(Creneau creneau){
         Creneau cre = creneauRepository.findById(creneau.getId())

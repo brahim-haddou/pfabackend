@@ -18,9 +18,8 @@ public class CreneauController {
     private final CreneauService creneauService;
 
     @PostMapping
-    public ResponseEntity<String> createCreneau(@RequestBody Creneau creneau) {
-        creneauService.saveCreneau(creneau);
-        return status(HttpStatus.CREATED).body("Creneau CREATED Successful");
+    public ResponseEntity<Creneau> createCreneau(@RequestBody Creneau creneau) {
+        return status(HttpStatus.CREATED).body(creneauService.saveCreneau(creneau));
     }
 
     @GetMapping

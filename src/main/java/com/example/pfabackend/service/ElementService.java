@@ -26,8 +26,8 @@ public class ElementService {
     private final ProfesseurRepository professeurRepository;
     private final ProfesseurElementRepository professeurElementRepository;
 
-    public void saveElement(Element element){
-        elementRepository.save(element);
+    public Element saveElement(Element element){
+        return elementRepository.save(element);
     }
     public Element updateElement(Element element){
         Element elem = elementRepository.findById(element.getId())

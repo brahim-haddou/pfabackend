@@ -17,8 +17,8 @@ import java.util.List;
 public class SalleService {
     private final SalleRepository salleRepository;
 
-    public void saveSalle(Salle salle){
-        salleRepository.save(salle);
+    public Salle saveSalle(Salle salle){
+        return salleRepository.save(salle);
     }
     public Salle updateSalle(Salle salle){
         Salle sal = salleRepository.findById(salle.getId())
