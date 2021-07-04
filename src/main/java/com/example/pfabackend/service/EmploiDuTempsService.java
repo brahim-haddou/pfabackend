@@ -41,7 +41,7 @@ public class EmploiDuTempsService {
             emploiDuTemps.setClasse(classe);
         }
         else{
-            throw new SpringPfaException("test");
+            throw new SpringPfaException("EmploiDuTempsRequest Exception");
         }
         if(emploiDuTempsRequest.getCreneauId() != null)
         {
@@ -50,7 +50,7 @@ public class EmploiDuTempsService {
             if(
                     emploiDuTempsRequest.getSalleId() != null
                             &&
-                            !emploiDuTempsRepository.existsBySalleIdAndCreneauId(emploiDuTempsRequest.getSalleId(),emploiDuTempsRequest.getCreneauId())
+                    !emploiDuTempsRepository.existsBySalleIdAndCreneauId(emploiDuTempsRequest.getSalleId(),emploiDuTempsRequest.getCreneauId())
             )
             {
                 Salle salle = salleService.getSalle(emploiDuTempsRequest.getSalleId());
@@ -59,7 +59,7 @@ public class EmploiDuTempsService {
             if(
                     emploiDuTempsRequest.getProfesseurId() != null
                             &&
-                            !emploiDuTempsRepository.existsByProfesseurIdAndCreneauId(emploiDuTempsRequest.getProfesseurId(),emploiDuTempsRequest.getCreneauId())
+                    !emploiDuTempsRepository.existsByProfesseurIdAndCreneauId(emploiDuTempsRequest.getProfesseurId(),emploiDuTempsRequest.getCreneauId())
             )
             {
                 Professeur professeur = professeurService.getProfesseur(emploiDuTempsRequest.getProfesseurId());
@@ -132,7 +132,9 @@ public class EmploiDuTempsService {
     public void deleteEmploiDuTemps(Long id) {
         emploiDuTempsRepository.deleteById(id);
     }
-
+    public void deleteFiliereEmploiDuTemps(Long id) {
+        emploiDuTempsRepository.deleteAllByClasseElementModuleFiliereId(id);
+    }
     public List<EmploiDuTemps> findAll() {
         return emploiDuTempsRepository.findAll();
     }

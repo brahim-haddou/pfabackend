@@ -16,4 +16,5 @@ public interface EmploiDuTempsRepository extends JpaRepository<EmploiDuTemps, Lo
     boolean existsByClasseId(Long id);
     boolean existsByProfesseurIdAndCreneauId(Long pid,Long cid);
     boolean existsBySalleIdAndCreneauId(Long sid,Long cid);
+    void deleteAllByClasseElementModuleFiliereId(Long id);
 }

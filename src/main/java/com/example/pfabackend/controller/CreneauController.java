@@ -17,34 +17,19 @@ import static org.springframework.http.ResponseEntity.status;
 public class CreneauController {
     private final CreneauService creneauService;
 
+
     @PostMapping
-    public ResponseEntity<Creneau> createCreneau(@RequestBody Creneau creneau) {
-        return status(HttpStatus.CREATED).body(creneauService.saveCreneau(creneau));
+    public ResponseEntity<List<Creneau>> createCreneau(@RequestBody List<Creneau> creneau) {
+        return status(HttpStatus.CREATED).body(creneauService.saveCreneauAll(creneau));
     }
-
     @GetMapping
-    public ResponseEntity<List<Creneau>> getAllCreneaus() {
-        return status(HttpStatus.OK).body(creneauService.getAllCreneau());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Creneau> getCreneau(@PathVariable Long id) {
-        return status(HttpStatus.OK).body(creneauService.getCreneau(id));
-    }
-
-    @PutMapping()
-    public ResponseEntity<Creneau> updateCreneau(@RequestBody Creneau creneau) {
-        return status(HttpStatus.OK).body(creneauService.updateCreneau(creneau));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCreneau(@PathVariable Long id) {
-        creneauService.deleteCreneau(id);
-        return status(HttpStatus.OK).body("Creneau Deleted Successful");
+    public ResponseEntity<List<Creneau>> getCreneau() {
+        return status(HttpStatus.CREATED).body(creneauService.getAllCreneau());
     }
     @DeleteMapping
     public ResponseEntity<String> deleteCreneau() {
         creneauService.deleteAllCreneau();
-        return status(HttpStatus.OK).body("Creneau Deleted Successful");
+        return status(HttpStatus.CREATED).body("All Creneaus Deleted Successful");
     }
+
 }

@@ -17,31 +17,18 @@ import java.util.List;
 public class CreneauService {
     private final CreneauRepository creneauRepository;
 
-    public Creneau saveCreneau(Creneau creneau){
-        return creneauRepository.save(creneau);
-    }
-    public Creneau updateCreneau(Creneau creneau){
-        Creneau cre = creneauRepository.findById(creneau.getId())
-                .orElseThrow(() -> new ProfesseurNotFoundException( "Creneau With Id "+ creneau.getId() +" Not Found"));
 
-        cre.setJour(creneau.getJour());
-        cre.setDebut(creneau.getDebut());
-        cre.setFin(creneau.getFin());
-        return creneauRepository.save(cre);
-    }
     @Transactional(readOnly = true)
     public Creneau getCreneau(Long id) {
-        return creneauRepository.findById(id)
-                .orElseThrow(() -> new ProfesseurNotFoundException( "Creneau With Id "+ id +" Not Found"));
+        return creneauRepository.findById(id).orElseThrow(() -> new ProfesseurNotFoundException( "Creneau With Id "+ id +" Not Found"));
     }
     @Transactional(readOnly = true)
     public List<Creneau> getAllCreneau() {
         return creneauRepository.findAll();
     }
-    public void deleteCreneau(Long id) {
-        creneauRepository.deleteById(id);
+    public List<Creneau> saveCreneauAll(List<Creneau> creneau) {
+        return creneauRepository.saveAll(creneau);
     }
-
     public void deleteAllCreneau() {
         creneauRepository.deleteAll();
     }

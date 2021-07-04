@@ -24,7 +24,6 @@ public class ClasseService {
     public Classe updateClasse(Classe classe){
         Classe cla = classeRepository.findById(classe.getId())
                 .orElseThrow(() -> new ProfesseurNotFoundException( "Classe With Id "+ classe.getId() +" Not Found"));
-
         cla.setNom(classe.getNom());
         cla.setType(classe.getType());
         cla.setMaxEtudiant(classe.getMaxEtudiant());

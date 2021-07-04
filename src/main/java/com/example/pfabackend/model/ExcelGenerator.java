@@ -19,6 +19,9 @@ public class ExcelGenerator {
                 ByteArrayOutputStream out = new ByteArrayOutputStream()
         ){
             Sheet sheet = workbook.createSheet(emploiDuTemps.get(0).getClasse().getElement().getModule().getFiliere().getNom());
+            for (int i = 0; i < 12; i++) {
+                sheet.createRow(i);
+            }
             // Set up font
             Font font = workbook.createFont();
             font.setColor(IndexedColors.WHITE.getIndex());
@@ -31,12 +34,12 @@ public class ExcelGenerator {
             cellStyle.setAlignment(HorizontalAlignment.CENTER);
             cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
-            Row filRow = sheet.createRow(1);
+            Row filRow = sheet.getRow(1);
             Cell cell = filRow.createCell(2);
             cell.setCellValue("Two cells have merged");
             cell.setCellStyle(cellStyle);
             //Merging cells by providing cell index
-            sheet.addMergedRegion(new CellRangeAddress(1,1,2,5));
+            sheet.addMergedRegion(new CellRangeAddress(1,1,2,creneau.size() + 1));
 
 
             // Set up font
@@ -52,7 +55,7 @@ public class ExcelGenerator {
             cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
             int rowIdx = 2;
-            Row headerRow = sheet.createRow(3);
+            Row headerRow = sheet.getRow(3);
             for (Creneau c: creneau) {
                 headerRow.createCell(rowIdx).setCellValue(c.getDebut() +"H-"+c.getFin()+"H");
                 headerRow.getCell(rowIdx).setCellStyle(cellStyle);
@@ -74,7 +77,7 @@ public class ExcelGenerator {
 
             int col = 4;
             for (String c :COLUMNs) {
-                Row row = sheet.createRow(col);
+                Row row = sheet.getRow(col);
                 row.createCell(1).setCellValue(c);
                 row.getCell(1).setCellStyle(cellStyle);
                 row.setHeightInPoints(100);
@@ -95,12 +98,14 @@ public class ExcelGenerator {
             for(EmploiDuTemps e : emploiDuTemps){
                 int[] idx = getCreneauIndeses(creneau, e.getCreneau());
                 Row row =sheet.getRow(idx[0]);
-                row.createCell(idx[1]).setCellValue(
-                        e.getClasse().getType() + " de "+ e.getClasse().getNom() + "\n"+
-                        "Element : "+ e.getClasse().getElement().getNom() + "\n"+
-                        "Professeur : "+ e.getProfesseur().getNom() + "\n"+
-                        "Salle : "+ e.getSalle().getNom() + "\n"
+                Cell cell1 =  row.createCell(idx[1]);
+                cell1.setCellValue(
+                        e.getCreneau().getJour() + "\n "+ e.getCreneau().getDebut()  + " -- "+ e.getCreneau().getFin()
                 );
+//                e.getClasse().getType() + " de "+ e.getClasse().getNom() + "\n"+
+//                        "Element : "+ e.getClasse().getElement().getNom() + "\n"+
+//                        "Professeur : "+ e.getProfesseur().getNom() + "\n"+
+//                        "Salle : "+ e.getSalle().getNom() + "\n"
                 row.getCell(idx[1]).setCellStyle(cellStyle);
             }
             workbook.write(out);

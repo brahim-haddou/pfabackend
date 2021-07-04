@@ -35,12 +35,15 @@ public class EmploiDuTempsController {
     public ResponseEntity<List<EmploiDuTemps>> getSalleEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.getSalleEmploiDuTemps(id));
     }
-
     @GetMapping("/filiere/{id}")
     public ResponseEntity<List<EmploiDuTemps>> getFiliereEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.getFiliereEmploiDuTemps(id));
     }
-
+    @DeleteMapping("/filiere/{id}")
+    public ResponseEntity<String> deleteFiliereEmploiDuTemps(@PathVariable Long id) {
+        emploiDuTempsService.deleteFiliereEmploiDuTemps(id);
+        return status(HttpStatus.OK).body("Filiere EmploiDuTemps Deleted Successful");
+    }
     @GetMapping("/{id}")
     public ResponseEntity<EmploiDuTemps> getEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.getEmploiDuTemps(id));
@@ -60,6 +63,7 @@ public class EmploiDuTempsController {
         return status(HttpStatus.OK).body("EmploiDuTemps Deleted Successful");
     }
 
+    // -------------- update
     @PutMapping("/{id}/classe/{cid}")
     public ResponseEntity<EmploiDuTemps> updateClasseEmploiDuTemps(@PathVariable Long id, @PathVariable Long cid){
         return status(HttpStatus.OK).body(emploiDuTempsService.updateClasseEmploiDuTemps(id,cid));
@@ -72,7 +76,7 @@ public class EmploiDuTempsController {
     public ResponseEntity<EmploiDuTemps> updateSalleEmploiDuTemps(@PathVariable Long id, @PathVariable Long sid){
         return status(HttpStatus.OK).body(emploiDuTempsService.updateSalleEmploiDuTemps(id,sid));
     }
-
+    // -------------- delete
     @DeleteMapping("/{id}/classe")
     public ResponseEntity<EmploiDuTemps> deleteClasseFromEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.deleteClasseFromEmploiDuTemps(id));
@@ -85,12 +89,12 @@ public class EmploiDuTempsController {
     public ResponseEntity<EmploiDuTemps> deleteSalleFromEmploiDuTemps(@PathVariable Long id) {
         return status(HttpStatus.OK).body(emploiDuTempsService.deleteSalleEmploiDuTemps(id));
     }
-
+    // -------------- excel
     @GetMapping(value = "/filiere/{id}/excel")
     public ResponseEntity<InputStreamResource> excelFiliereEmploiDuTemps(@PathVariable Long id) throws IOException {
         ByteArrayInputStream in = emploiDuTempsService.getFiliereEmploiDuTempsExcel(id);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename="+filiereService.getFiliere(id).getNom()+"emploiDuTemps.xlsx");
+        headers.add("Content-Disposition", "attachment; filename="+filiereService.getFiliere(id).getNom()+"EmploiDuTemps.xlsx");
         return ResponseEntity
                 .ok()
                 .headers(headers)
@@ -100,7 +104,7 @@ public class EmploiDuTempsController {
     public ResponseEntity<InputStreamResource> excelSalleEmploiDuTemps(@PathVariable Long id) throws IOException {
         ByteArrayInputStream in = emploiDuTempsService.getSalleEmploiDuTempsExcel(id);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename="+salleService.getSalle(id).getNom()+"DuTempsService.xlsx");
+        headers.add("Content-Disposition", "attachment; filename="+salleService.getSalle(id).getNom()+"EmploiDuTemps.xlsx");
         return ResponseEntity
                 .ok()
                 .headers(headers)
