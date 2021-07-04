@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface CreneauRepository extends JpaRepository<Creneau, Long> {
     List<Creneau> getAllByJourOrderByDebut(String jour);
+    List<Creneau> findAllByOrderByIdAsc();
 }

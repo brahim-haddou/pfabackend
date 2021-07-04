@@ -24,7 +24,7 @@ public class CreneauService {
     }
     @Transactional(readOnly = true)
     public List<Creneau> getAllCreneau() {
-        return creneauRepository.findAll();
+        return creneauRepository.findAllByOrderByIdAsc();
     }
     public List<Creneau> saveCreneauAll(List<Creneau> creneau) {
         return creneauRepository.saveAll(creneau);

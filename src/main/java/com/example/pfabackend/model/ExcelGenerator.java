@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ExcelGenerator {
-    private static final String[] COLUMNs = {"Lundi", "Mercredi", "Mardi","Meudi", "Mendredi", "Samedi"};
+    private static final String[] COLUMNs = {"Lundi", "Mardi", "Mercredi","Jeudi", "Vendredi", "Samedi"};
     public static ByteArrayInputStream customersToExcel(List<EmploiDuTemps> emploiDuTemps,List<Creneau> creneau) throws IOException {
 
 
@@ -100,12 +100,10 @@ public class ExcelGenerator {
                 Row row =sheet.getRow(idx[0]);
                 Cell cell1 =  row.createCell(idx[1]);
                 cell1.setCellValue(
-                        e.getCreneau().getJour() + "\n "+ e.getCreneau().getDebut()  + " -- "+ e.getCreneau().getFin()
+                        e.getClasse().getNom() + " || "+ e.getProfesseur().getNom() + "\n"+
+                                "Salle : "+ e.getSalle().getNom() + "\n"
                 );
-//                e.getClasse().getType() + " de "+ e.getClasse().getNom() + "\n"+
-//                        "Element : "+ e.getClasse().getElement().getNom() + "\n"+
-//                        "Professeur : "+ e.getProfesseur().getNom() + "\n"+
-//                        "Salle : "+ e.getSalle().getNom() + "\n"
+
                 row.getCell(idx[1]).setCellStyle(cellStyle);
             }
             workbook.write(out);
