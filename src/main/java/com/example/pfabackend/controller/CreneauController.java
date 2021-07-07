@@ -23,13 +23,13 @@ public class CreneauController {
     public ResponseEntity<List<Creneau>> createCreneau(@RequestBody List<CreneauRequest> creneauRequest) {
         return status(HttpStatus.CREATED).body(creneauService.saveCreneauAll(creneauRequest));
     }
-    @GetMapping
-    public ResponseEntity<List<Creneau>> getCreneau() {
-        return status(HttpStatus.CREATED).body(creneauService.getAllCreneau());
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Creneau>> getCreneau(@PathVariable Long id) {
+        return status(HttpStatus.CREATED).body(creneauService.getAllCreneau(id));
     }
-    @DeleteMapping
-    public ResponseEntity<String> deleteCreneau() {
-        creneauService.deleteAllCreneau();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCreneau(@PathVariable Long id) {
+        creneauService.deleteAllCreneau(id);
         return status(HttpStatus.CREATED).body("All Creneaus Deleted Successful");
     }
 

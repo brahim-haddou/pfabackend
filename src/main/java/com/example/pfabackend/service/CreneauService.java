@@ -28,8 +28,8 @@ public class CreneauService {
         return creneauRepository.findById(id).orElseThrow(() -> new ProfesseurNotFoundException( "Creneau With Id "+ id +" Not Found"));
     }
     @Transactional(readOnly = true)
-    public List<Creneau> getAllCreneau() {
-        return creneauRepository.findAllByOrderByIdAsc();
+    public List<Creneau> getAllCreneau(Long id) {
+        return creneauRepository.findAllByFiliereIdOrderByIdAsc(id);
     }
     public List<Creneau> saveCreneauAll(List<CreneauRequest> creneauRequests) {
         List<Creneau> creneau = new ArrayList<>();
@@ -39,7 +39,7 @@ public class CreneauService {
         }
         return creneauRepository.saveAll(creneau);
     }
-    public void deleteAllCreneau() {
-        creneauRepository.deleteAll();
+    public void deleteAllCreneau(Long id) {
+        creneauRepository.deleteAllByFiliereId(id);
     }
 }
