@@ -139,7 +139,8 @@ public class EmploiDuTempsService {
         emploiDuTempsRepository.deleteById(id);
     }
     public void deleteFiliereEmploiDuTemps(Long id) {
-        emploiDuTempsRepository.deleteAllByClasseElementModuleFiliereId(id);
+        List<EmploiDuTemps> lis = emploiDuTempsRepository.findAllByClasseElementModuleFiliereId(id);
+        emploiDuTempsRepository.deleteInBatch(lis);
     }
     public List<EmploiDuTemps> findAll() {
         return emploiDuTempsRepository.findAll();

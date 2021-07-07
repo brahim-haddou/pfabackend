@@ -2,7 +2,6 @@ package com.example.pfabackend.service;
 
 import com.example.pfabackend.dto.CreneauRequest;
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
-import com.example.pfabackend.mapper.ClasseMapper;
 import com.example.pfabackend.mapper.CreneauMapper;
 import com.example.pfabackend.model.Creneau;
 import com.example.pfabackend.repository.CreneauRepository;
@@ -40,6 +39,6 @@ public class CreneauService {
         return creneauRepository.saveAll(creneau);
     }
     public void deleteAllCreneau(Long id) {
-        creneauRepository.deleteAllByFiliereId(id);
+        creneauRepository.removeAllByFiliereId(id);
     }
 }
