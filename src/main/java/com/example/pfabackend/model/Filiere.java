@@ -26,4 +26,7 @@ public class Filiere {
     @OneToMany(mappedBy = "filiere", cascade=CascadeType.ALL)
     private Set<Module> modules = new HashSet();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "filiere", cascade=CascadeType.ALL)
+    private Set<Creneau> creneaus = new HashSet();
 }

@@ -28,4 +28,8 @@ public class Creneau {
     @OneToMany(mappedBy ="creneau", cascade=CascadeType.ALL)
     private Set<EmploiDuTemps> emploiDuTemps = new HashSet();
 
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "filiere_id", referencedColumnName = "id")
+    private Filiere filiere;
 }

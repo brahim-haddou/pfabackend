@@ -1,5 +1,6 @@
 package com.example.pfabackend.controller;
 
+import com.example.pfabackend.dto.CreneauRequest;
 import com.example.pfabackend.model.Creneau;
 import com.example.pfabackend.service.CreneauService;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ public class CreneauController {
 
 
     @PostMapping
-    public ResponseEntity<List<Creneau>> createCreneau(@RequestBody List<Creneau> creneau) {
-        return status(HttpStatus.CREATED).body(creneauService.saveCreneauAll(creneau));
+    public ResponseEntity<List<Creneau>> createCreneau(@RequestBody List<CreneauRequest> creneauRequest) {
+        return status(HttpStatus.CREATED).body(creneauService.saveCreneauAll(creneauRequest));
     }
     @GetMapping
     public ResponseEntity<List<Creneau>> getCreneau() {
