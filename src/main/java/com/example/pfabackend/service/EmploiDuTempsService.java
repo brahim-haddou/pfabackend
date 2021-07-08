@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -136,7 +137,10 @@ public class EmploiDuTempsService {
     }
 
     public void deleteEmploiDuTemps(Long id) {
-        emploiDuTempsRepository.deleteById(id);
+        List<EmploiDuTemps> li = new ArrayList<>();
+        EmploiDuTemps e = emploiDuTempsRepository.getOne(id);
+        li.add(e);
+        emploiDuTempsRepository.deleteInBatch(li);
     }
     public void deleteFiliereEmploiDuTemps(Long id) {
         List<EmploiDuTemps> lis = emploiDuTempsRepository.findAllByClasseElementModuleFiliereId(id);

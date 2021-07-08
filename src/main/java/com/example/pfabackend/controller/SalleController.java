@@ -33,7 +33,10 @@ public class SalleController {
     public ResponseEntity<Salle> getSalle(@PathVariable Long id) {
         return status(HttpStatus.OK).body(salleService.getSalle(id));
     }
-
+    @GetMapping("/{type}/{place}")
+    public ResponseEntity<List<Salle>> getSalle(@PathVariable String type,@PathVariable int place) {
+        return status(HttpStatus.OK).body(salleService.getSalleByPlaceAndType(type, place));
+    }
     @PutMapping()
     public ResponseEntity<Salle> updateSalle(@RequestBody Salle salle) {
         return status(HttpStatus.OK).body(salleService.updateSalle(salle));

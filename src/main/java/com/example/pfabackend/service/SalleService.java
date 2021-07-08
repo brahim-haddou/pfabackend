@@ -35,6 +35,10 @@ public class SalleService {
                 .orElseThrow(() -> new ProfesseurNotFoundException( "Salle With Id "+ id +" Not Found"));
     }
     @Transactional(readOnly = true)
+    public List<Salle> getSalleByPlaceAndType(String type, int place) {
+        return salleRepository.findAllByTypeAndMaxPlaceGreaterThanEqual(type, place);
+    }
+    @Transactional(readOnly = true)
     public List<Salle> getAllSalles() {
         return salleRepository.findAll();
     }
