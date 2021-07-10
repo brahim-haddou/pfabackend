@@ -2,12 +2,14 @@ package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
 import com.example.pfabackend.model.Classe;
+import com.example.pfabackend.model.EmploiDuTemps;
 import com.example.pfabackend.repository.ClasseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,6 +42,9 @@ public class ClasseService {
         return classeRepository.findAll();
     }
     public void deleteClasse(Long id) {
-        classeRepository.deleteById(id);
+        List<Classe> li = new ArrayList<>();
+        Classe e = classeRepository.getOne(id);
+        li.add(e);
+        classeRepository.deleteInBatch(li);
     }
 }

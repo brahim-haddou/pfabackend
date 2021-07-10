@@ -2,6 +2,7 @@ package com.example.pfabackend.service;
 
 import com.example.pfabackend.exceptions.ProfesseurNotFoundException;
 import com.example.pfabackend.model.Element;
+import com.example.pfabackend.model.Filiere;
 import com.example.pfabackend.model.Module;
 import com.example.pfabackend.repository.ElementRepository;
 import com.example.pfabackend.repository.ModuleRepository;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,7 +45,10 @@ public class ModuleService {
         return moduleRepository.findAll();
     }
     public void deleteModule(Long id) {
-        moduleRepository.deleteById(id);
+        List<Module> li = new ArrayList<>();
+        Module e = moduleRepository.getOne(id);
+        li.add(e);
+        moduleRepository.deleteInBatch(li);
     }
 
     public List<Module> getModulesByFiliereId(Long id) {

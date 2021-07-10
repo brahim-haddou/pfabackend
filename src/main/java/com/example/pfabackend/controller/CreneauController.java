@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/auth/creneau")
+@RequestMapping("/api/creneau")
 @AllArgsConstructor
 public class CreneauController {
     private final CreneauService creneauService;

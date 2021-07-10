@@ -36,7 +36,7 @@ public class ExcelGenerator {
 
             Row filRow = sheet.getRow(1);
             Cell cell = filRow.createCell(2);
-            cell.setCellValue("Two cells have merged");
+            cell.setCellValue(emploiDuTemps.get(0).getClasse().getElement().getModule().getFiliere().getNom()+" Emplois Du Temps");
             cell.setCellStyle(cellStyle);
             //Merging cells by providing cell index
             sheet.addMergedRegion(new CellRangeAddress(1,1,2,creneau.size() + 1));

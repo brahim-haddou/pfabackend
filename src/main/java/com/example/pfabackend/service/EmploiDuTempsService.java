@@ -32,9 +32,7 @@ public class EmploiDuTempsService {
 
     public EmploiDuTemps save(EmploiDuTempsRequest emploiDuTempsRequest){
         EmploiDuTemps emploiDuTemps = new EmploiDuTemps();
-        if(emploiDuTempsRequest.getClasseId() != null
-            &&
-            !emploiDuTempsRepository.existsByClasseId(emploiDuTempsRequest.getClasseId()) )
+        if(emploiDuTempsRequest.getClasseId() != null)
         {
             Classe classe = classeService.getClasse(emploiDuTempsRequest.getClasseId());
             emploiDuTemps.setClasse(classe);

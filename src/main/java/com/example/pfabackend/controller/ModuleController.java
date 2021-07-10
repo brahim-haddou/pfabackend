@@ -16,7 +16,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/auth/module")
+@RequestMapping("/api/module")
 @AllArgsConstructor
 public class ModuleController {
     private final FiliereService filiereService;

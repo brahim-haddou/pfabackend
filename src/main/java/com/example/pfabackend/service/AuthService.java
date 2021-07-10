@@ -40,6 +40,8 @@ public class AuthService {
     @Transactional
     public void signUp(RegisterRequest registerRequest) {
         User user = new User();
+        user.setFirstName(registerRequest.getFirstName());
+        user.setLastName(registerRequest.getLastName());
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
@@ -61,6 +63,7 @@ public class AuthService {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setUser(user);
+        verificationToken.setExpiryDate(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
         verificationTokenRepository.save(verificationToken);
 
         return token;

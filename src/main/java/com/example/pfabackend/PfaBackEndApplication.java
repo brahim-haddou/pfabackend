@@ -1,8 +1,10 @@
 package com.example.pfabackend;
 
+import com.example.pfabackend.config.SwaggerConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableAsync
+@Import(SwaggerConfiguration.class)
 public class PfaBackEndApplication {
 
 	public static void main(String[] args) {

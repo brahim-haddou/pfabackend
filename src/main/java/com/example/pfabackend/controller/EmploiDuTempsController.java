@@ -19,7 +19,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/auth/emploiDuTemps")
+@RequestMapping("/api/emploiDuTemps")
 @AllArgsConstructor
 public class EmploiDuTempsController {
 

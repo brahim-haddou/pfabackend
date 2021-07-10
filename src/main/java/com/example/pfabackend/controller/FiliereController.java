@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/auth/filiere")
+@RequestMapping("/api/filiere")
 @AllArgsConstructor
 public class FiliereController {
     private final FiliereService filiereService;

@@ -15,7 +15,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/auth/classe")
+@RequestMapping("/api/classe")
 @AllArgsConstructor
 public class ClasseController {
     private final ClasseService classeService;
