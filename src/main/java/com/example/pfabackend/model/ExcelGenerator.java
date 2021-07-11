@@ -110,7 +110,6 @@ public class ExcelGenerator {
             return new ByteArrayInputStream(out.toByteArray());
         }
     }
-
     private static int[] getCreneauIndeses(List<Creneau> creneau, Creneau cr){
         int ligIdx = 4;
         for(String j :COLUMNs){

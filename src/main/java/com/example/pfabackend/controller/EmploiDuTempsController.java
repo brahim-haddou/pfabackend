@@ -100,9 +100,21 @@ public class EmploiDuTempsController {
                 .headers(headers)
                 .body(new InputStreamResource(in));
     }
+
     @GetMapping(value = "/salle/{id}/excel")
     public ResponseEntity<InputStreamResource> excelSalleEmploiDuTemps(@PathVariable Long id) throws IOException {
         ByteArrayInputStream in = emploiDuTempsService.getSalleEmploiDuTempsExcel(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename="+salleService.getSalle(id).getNom()+"EmploiDuTemps.xlsx");
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new InputStreamResource(in));
+    }
+
+    @GetMapping(value = "/professeur/{id}/excel")
+    public ResponseEntity<InputStreamResource> excelProfesseurEmploiDuTemps(@PathVariable Long id) throws IOException {
+        ByteArrayInputStream in = emploiDuTempsService.getProfesseurEmploiDuTempsExcel(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename="+salleService.getSalle(id).getNom()+"EmploiDuTemps.xlsx");
         return ResponseEntity

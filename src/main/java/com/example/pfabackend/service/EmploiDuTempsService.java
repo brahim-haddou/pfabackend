@@ -129,6 +129,12 @@ public class EmploiDuTempsService {
 
         return ExcelGenerator.customersToExcel(emploiTemps, creneau);
     }
+    public ByteArrayInputStream getProfesseurEmploiDuTempsExcel(Long id) throws IOException {
+        List<Creneau> creneau = creneauRepository.getAllByJourOrderByDebut("Lundi");
+        List<EmploiDuTemps> emploiTemps = emploiDuTempsRepository.findAllByProfesseurId(id);
+
+        return ExcelGenerator.customersToExcel(emploiTemps, creneau);
+    }
     public EmploiDuTemps getEmploiDuTemps(Long id) {
         return emploiDuTempsRepository.findById(id)
                 .orElseThrow(() -> new ProfesseurNotFoundException( "EmploiDuTemps With Id "+ id +" Not Found"));

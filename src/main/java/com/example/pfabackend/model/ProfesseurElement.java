@@ -27,4 +27,8 @@ public class ProfesseurElement {
     @ManyToOne(optional = false)
     private Element element;
 
+    public ProfesseurElement(Element element, Professeur professeur) {
+        this.professeur = professeur;
+        this.element = element;
+    }
 }

@@ -14,6 +14,7 @@ public interface EmploiDuTempsRepository extends JpaRepository<EmploiDuTemps, Lo
     EmploiDuTemps findByClasseId(Long id);
     List<EmploiDuTemps> findAllByClasseElementModuleFiliereId(Long id);
     List<EmploiDuTemps> findAllBySalleId(Long id);
+    List<EmploiDuTemps> findAllByProfesseurId(Long id);
     boolean existsByClasseId(Long id);
     boolean existsByProfesseurIdAndCreneauId(Long pid,Long cid);
     boolean existsBySalleIdAndCreneauId(Long sid,Long cid);
