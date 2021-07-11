@@ -25,7 +25,7 @@ public class RefreshTokenService {
     }
 
     public void validateRefreshToken(String token){
-        refreshTokenRepository.findByToken(token)
+        refreshTokenRepository.getByToken(token)
                 .orElseThrow(() -> new SpringPfaException("Invalid refresh Token"));
     }
     public void deleteRefreshToken(String token){
